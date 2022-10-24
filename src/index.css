@@ -22,5 +22,9 @@ nav {
   list-style-type: none;
   display: flex;
   gap: 50px;
+  padding-right: 20px;
 }
-
+img {
+  width: 1900px;
+  height: 1080px;
+}
