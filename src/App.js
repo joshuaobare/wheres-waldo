@@ -4,7 +4,9 @@ import Nav from "./components/Nav";
 function App() {
 
   const handler = (event) => {
-    console.log(event.target.getBoundingClientRect() , event.target.clientY)
+    const {width , height} = event.target.getBoundingClientRect()
+    
+    console.log(width+window.scrollX , height+window.scrollY)
   }
 
   return (
