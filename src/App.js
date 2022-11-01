@@ -24,6 +24,22 @@ import { useEffect, useState } from "react";
 function App() {
 
   const [coords , setCoords] = useState({})
+  const [startTime , setStartTime] = useState("")
+  const [timer, setTimer] = useState(0)
+
+  useEffect(() => {
+    setStartTime(Date.now())
+  }, [])
+
+  useEffect(() => {
+    setTimeout(()=> {
+      setTimer(Date.now() - startTime)
+    }, 1000)
+  } , [startTime , timer])
+  
+  function timeChanger() {
+    setInterval(Date.now() - startTime, 1000)
+  }
 
 
   /* useEffect(() => {
@@ -67,11 +83,11 @@ function App() {
     console.log(event.target.getBoundingClientRect())
   }
 
-  console.log(coords)
+  
 
   return (
     <div className="App">
-      <Nav />
+      <Nav startTime= {timer}/>
       <img onClick={handler} src={image} alt="" />
     </div>
   );
