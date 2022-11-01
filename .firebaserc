@@ -1,5 +1,7 @@
 {
   "projects": {
     "default": "where-s-waldo-8ef97"
-  }
+  },
+  "targets": {},
+  "etags": {}
 }
