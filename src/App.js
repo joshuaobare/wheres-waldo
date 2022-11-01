@@ -25,7 +25,7 @@ function App() {
 
   const [coords , setCoords] = useState({})
   const [startTime , setStartTime] = useState("")
-  const [timer, setTimer] = useState(0)
+  const [timer, setTimer] = useState("")
 
   useEffect(() => {
     setStartTime(Date.now())
@@ -33,14 +33,20 @@ function App() {
 
   useEffect(() => {
     setTimeout(()=> {
-      setTimer(Date.now() - startTime)
+      setTimer(() => {
+        const time = Date.now() - startTime
+        let minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((time % (1000 * 60)) / 1000);
+
+        if(minutes<10) {minutes = "0"+minutes}
+        if(seconds<10) {seconds = "0"+seconds}
+
+        return `${minutes}:${seconds}`
+      })
     }, 1000)
   } , [startTime , timer])
   
-  function timeChanger() {
-    setInterval(Date.now() - startTime, 1000)
-  }
-
+ 
 
   /* useEffect(() => {
     
