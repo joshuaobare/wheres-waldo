@@ -73,8 +73,14 @@ function App() {
     
   } */
 
+  let style
+
   const handler = (event) => {
     const {bottom , height , left, right , top, width} = event.target.getBoundingClientRect()
+
+    style = {
+      left: left, top: top
+    }
     
     setCoords(prevState => {
       return {...prevState ,
@@ -95,6 +101,7 @@ function App() {
     <div className="App">
       <Nav startTime= {timer}/>
       <img onClick={handler} src={image} alt="" />
+      <div style={style} className="target-box" ></div>
     </div>
   );
 }
