@@ -106,7 +106,16 @@ function App() {
     <div className="App">
       <Nav startTime= {timer}/>
       <img onClick={handler} src={image} alt="" />
-      <div style={coords} className="target-box" ></div>
+      <div style={coords} className="target-box">
+        <div className="square"></div>
+        <div className="character-list">
+          <div>Waldo</div>
+          <div>Odlaw</div>
+          <div>Wilma</div>
+          
+        </div>
+      </div>
+      
     </div>
   );
 }
