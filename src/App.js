@@ -32,6 +32,10 @@ function App() {
   }, [])
 
   useEffect(() => {
+    
+  }, [coords])
+
+  useEffect(() => {
     setTimeout(()=> {
       setTimer(() => {
         const time = Date.now() - startTime
@@ -84,24 +88,25 @@ function App() {
     
     setCoords(prevState => {
       return {...prevState ,
-              bottom: bottom,
+              /*bottom: bottom,
               height: height,
-              left: left,
-              right: right,
-              top: top,
               width: width,
+              right: right,*/
+              top: event.clientY -25,
+              left: event.clientX -25,
+              
             }})
-    
-    console.log(event.target.getBoundingClientRect())
+    console.log("ran")
+    console.log(event.clientX)
   }
 
-  
+  console.log(coords)
 
   return (
     <div className="App">
       <Nav startTime= {timer}/>
       <img onClick={handler} src={image} alt="" />
-      <div style={style} className="target-box" ></div>
+      <div style={coords} className="target-box" ></div>
     </div>
   );
 }
