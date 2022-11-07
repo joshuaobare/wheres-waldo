@@ -32,7 +32,7 @@ img {
 .target-box {
   display: flex;
   position: absolute;
-  gap: 0px;
+  gap: 5px;
   align-items: center;
   /*top: 70%;
   left:63%;*/

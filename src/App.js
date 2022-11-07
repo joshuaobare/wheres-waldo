@@ -1,5 +1,6 @@
 import image from "./images/whereswaldo.jpg"
 import Nav from "./components/Nav";
+import app from "./index"
 import {
   getFirestore,
   collection,
@@ -12,6 +13,8 @@ import {
   updateDoc,
   doc,
   serverTimestamp,
+  getDoc,
+  getDocs
 } from 'firebase/firestore';
 import {
   getStorage,
@@ -24,11 +27,22 @@ import { useEffect, useState } from "react";
 function App() {
 
   const [coords , setCoords] = useState({})
+  const [waldoCoords, setWaldoCoords] = useState()
   const [startTime , setStartTime] = useState("")
   const [timer, setTimer] = useState("")
 
   useEffect(() => {
     setStartTime(Date.now())
+    async function fetcher() {
+      const ref = await getDocs(collection(getFirestore(app), "coordinates"))
+      console.log(ref)
+      ref.forEach((doc) => {
+        setWaldoCoords(doc._document.data.value.mapValue.fields.coords.mapValue.fields)
+      })
+    
+    }
+    fetcher()
+    
   }, [])
 
   useEffect(() => {
@@ -100,7 +114,7 @@ function App() {
     console.log(event.clientX)
   }
 
-  console.log(coords)
+  console.log(waldoCoords)
 
   return (
     <div className="App">

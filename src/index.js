@@ -5,6 +5,7 @@ import App from './App';
 import {firebaseConfig} from "./firebase-config"
 import { initializeApp } from 'firebase/app';
 import { getAnalytics } from "firebase/analytics";
+import { getFirestore } from 'firebase/firestore';
 
 
 
@@ -17,6 +18,7 @@ import { getAnalytics } from "firebase/analytics";
 
 
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app)
 
 
 
@@ -28,3 +30,4 @@ root.render(
 );
 
 
+export default app
