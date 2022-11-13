@@ -40,9 +40,12 @@ function App() {
       const ref = await getDocs(collection(getFirestore(app), "coordinates"))
       //console.log(ref)
       ref.forEach((doc) => {
-        console.log(doc)
-        console.log(JSON.parse(doc._document.data.value.mapValue.fields.Odlaw.stringValue))
-        setWaldoCoords(doc._document.data.value.mapValue.fields.coords.mapValue.fields)
+        const {Odlaw , Waldo , Wilma, Whitebeard} = doc._document.data.value.mapValue.fields
+        //console.log(doc)
+        setOdlawCoords(JSON.parse(Odlaw.stringValue))
+        setWaldoCoords(JSON.parse(Waldo.stringValue))
+        setWilmaCoords(JSON.parse(Wilma.stringValue))
+        setWhitebeardCoords(JSON.parse(Whitebeard.stringValue))
       })
     
     }
@@ -50,9 +53,9 @@ function App() {
     
   }, [])
 
-  useEffect(() => {
+  /*useEffect(() => {
     
-  }, [coords])
+  }, [coords])*/
 
   useEffect(() => {
     setTimeout(()=> {
@@ -69,8 +72,7 @@ function App() {
     }, 1000)
   } , [startTime , timer])
   
- 
-
+  
   /* useEffect(() => {
     
       saveCoords(coords)
@@ -96,14 +98,8 @@ function App() {
     
   } */
 
-  let style
-
   const handler = (event) => {
     const {bottom , height , left, right , top, width} = event.target.getBoundingClientRect()
-
-    style = {
-      left: left, top: top
-    }
     
     setCoords(prevState => {
       return {...prevState ,
@@ -120,9 +116,26 @@ function App() {
     console.log(event.clientY, event.clientX)
   }
 
+  const charChecker = (event) => {
+    const characterCoords = {
+      "waldo": {...waldoCoords, top: waldoCoords.top + 25, left: waldoCoords.left + 25},
+      "wilma": {...wilmaCoords, top: wilmaCoords.top + 25, left: wilmaCoords.left + 25},
+      "odlaw": {...odlawCoords, top: odlawCoords.top + 25, left: odlawCoords.left + 25},
+      "whitebeard": {...whitebeardCoords, top: whitebeardCoords.top + 25, left:whitebeardCoords.left + 25}
+    }
+
+    if (coords === characterCoords[event.target.dataset.name]) {
+      console.log("Coords are equal!")
+    } else {
+      console.log("Coords aren't equal!")
+    }
+
+    
+  }
+
   
 
-  //console.log(waldoCoords)
+  console.log(waldoCoords)
 
   return (
     <div className="App">
@@ -131,10 +144,10 @@ function App() {
       <div style={coords} className="target-box">
         <div className="square"></div>
         <div className="character-list">
-          <div className="char-name" data-name="waldo">Waldo</div>
-          <div data-name="odlaw" className="char-name">Odlaw</div>
-          <div data-name="wilma" className="char-name">Wilma</div>
-          <div data-name="whitebeard" className="char-name">Whitebeard</div>
+          <div data-name="waldo" className="char-name" onClick={charChecker}>Waldo</div>
+          <div data-name="odlaw" className="char-name" onClick={charChecker}>Odlaw</div>
+          <div data-name="wilma" className="char-name" onClick={charChecker}>Wilma</div>
+          <div data-name="whitebeard" className="char-name" onClick={charChecker}>Whitebeard</div>
           
         </div>
       </div>

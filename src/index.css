@@ -55,3 +55,6 @@ img {
   cursor: pointer;
   color: red;
 }
+.char-name:hover {
+  transform: scale(1.1);
+}
