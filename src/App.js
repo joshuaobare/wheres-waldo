@@ -28,6 +28,9 @@ function App() {
 
   const [coords , setCoords] = useState({})
   const [waldoCoords, setWaldoCoords] = useState()
+  const [odlawCoords, setOdlawCoords] = useState()
+  const [wilmaCoords, setWilmaCoords] = useState()
+  const [whitebeardCoords, setWhitebeardCoords] = useState()
   const [startTime , setStartTime] = useState("")
   const [timer, setTimer] = useState("")
 
@@ -35,8 +38,10 @@ function App() {
     setStartTime(Date.now())
     async function fetcher() {
       const ref = await getDocs(collection(getFirestore(app), "coordinates"))
-      console.log(ref)
+      //console.log(ref)
       ref.forEach((doc) => {
+        console.log(doc)
+        console.log(JSON.parse(doc._document.data.value.mapValue.fields.Odlaw.stringValue))
         setWaldoCoords(doc._document.data.value.mapValue.fields.coords.mapValue.fields)
       })
     
@@ -111,10 +116,13 @@ function App() {
               
             }})
     console.log("ran")
-    console.log(event.clientX)
+    console.log(top , left)
+    console.log(event.clientY, event.clientX)
   }
 
-  console.log(waldoCoords)
+  
+
+  //console.log(waldoCoords)
 
   return (
     <div className="App">
@@ -123,9 +131,10 @@ function App() {
       <div style={coords} className="target-box">
         <div className="square"></div>
         <div className="character-list">
-          <div>Waldo</div>
-          <div>Odlaw</div>
-          <div>Wilma</div>
+          <div className="char-name" data-name="waldo">Waldo</div>
+          <div data-name="odlaw" className="char-name">Odlaw</div>
+          <div data-name="wilma" className="char-name">Wilma</div>
+          <div data-name="whitebeard" className="char-name">Whitebeard</div>
           
         </div>
       </div>
