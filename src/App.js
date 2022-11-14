@@ -31,6 +31,10 @@ function App() {
   const [odlawCoords, setOdlawCoords] = useState()
   const [wilmaCoords, setWilmaCoords] = useState()
   const [whitebeardCoords, setWhitebeardCoords] = useState()
+  const [waldoFound, setWaldoFound] = useState(false)
+  const [odlawFound, setOdlawFound] = useState(false)
+  const [wilmaFound, setWilmaFound] = useState(false)
+  const [whitebeardFound, setWhitebeardFound] = useState(false)
   const [startTime , setStartTime] = useState("")
   const [timer, setTimer] = useState("")
 
@@ -124,10 +128,19 @@ function App() {
       "whitebeard": {...whitebeardCoords, top: whitebeardCoords.top + 25, left:whitebeardCoords.left + 25}
     }
 
+    const characterFound = {
+      "waldo": ()=> setWaldoFound(true),
+      "wilma": ()=> setWilmaFound(true),
+      "odlaw": ()=> setOdlawFound(true),
+      "whitebeard": () => setWhitebeardFound
+    }
+
     if (coords === characterCoords[event.target.dataset.name]) {
       console.log("Coords are equal!")
+      characterFound[event.target.dataset.name]()
     } else {
-      console.log("Coords aren't equal!")
+      
+      
     }
 
     
@@ -135,7 +148,7 @@ function App() {
 
   
 
-  console.log(waldoCoords)
+  //console.log(waldoCoords)
 
   return (
     <div className="App">
