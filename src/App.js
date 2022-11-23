@@ -37,6 +37,7 @@ function App() {
   const [whitebeardFound, setWhitebeardFound] = useState(false)
   const [startTime , setStartTime] = useState("")
   const [timer, setTimer] = useState("")
+  const [response, setResponse] = useState("")
 
   useEffect(() => {
     setStartTime(Date.now())
@@ -132,23 +133,24 @@ function App() {
       "waldo": ()=> setWaldoFound(true),
       "wilma": ()=> setWilmaFound(true),
       "odlaw": ()=> setOdlawFound(true),
-      "whitebeard": () => setWhitebeardFound
+      "whitebeard": () => setWhitebeardFound(true)
     }
 
-    if (coords === characterCoords[event.target.dataset.name]) {
-      console.log("Coords are equal!")
+    if (coords === characterCoords[event.target.dataset.name]) {      
       characterFound[event.target.dataset.name]()
     } else {
-      
-      
+        setResponse("Wrong choice")              
     }
 
+    // if all characters are found the target box is hidden
+    if (odlawFound && waldoFound && wilmaFound && whitebeardFound) {
+      setCoords(prevState => {
+        return {...prevState, display:"none"}
+      })
+    }
     
   }
 
-  
-
-  //console.log(waldoCoords)
 
   return (
     <div className="App">
@@ -164,6 +166,7 @@ function App() {
           
         </div>
       </div>
+      <div id="response">{response}</div>
       
     </div>
   );
