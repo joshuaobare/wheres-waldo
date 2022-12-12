@@ -38,6 +38,11 @@ function App() {
   const [startTime , setStartTime] = useState("")
   const [timer, setTimer] = useState("")
   const [response, setResponse] = useState("")
+  const [gameEnd, setGameEnd] = useState(false)
+  const [finalTime , setFinalTime] = useState("")
+
+    
+     
 
   useEffect(() => {
     setStartTime(Date.now())
@@ -143,18 +148,34 @@ function App() {
     }
 
     // if all characters are found the target box is hidden
-    if (odlawFound && waldoFound && wilmaFound && whitebeardFound) {
+    if (!odlawFound && !waldoFound && !wilmaFound && !whitebeardFound) {
       setCoords(prevState => {
         return {...prevState, display:"none"}
       })
+      
+      setGameEnd(true)
+
+      setFinalTime(() => {
+        const time = Date.now() - startTime
+        let minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+        let seconds = Math.floor((time % (1000 * 60)) / 1000);
+
+        if(minutes<10) {minutes = "0"+minutes}
+        if(seconds<10) {seconds = "0"+seconds}
+
+        return `${minutes}:${seconds}`
+      })
+
+
     }
     
   }
 
+  
 
   return (
     <div className="App">
-      <Nav startTime= {timer}/>
+      <Nav timer= {timer} finalTime={finalTime} gameEnd={gameEnd}/>
       <img onClick={handler} src={image} alt="" />
       <div style={coords} className="target-box">
         <div className="square"></div>

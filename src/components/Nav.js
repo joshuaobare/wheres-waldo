@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 export default function Nav(props) {
 
@@ -11,7 +11,7 @@ export default function Nav(props) {
                 <ul>
                     <li>Home</li>
                     <li>Leaderboards</li>
-                    <li>{props.startTime}</li>                    
+                    <li>{!props.gameEnd ? props.timer : props.finalTime}</li>                    
                 </ul>
             </div>
         </nav>
