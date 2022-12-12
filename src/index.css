@@ -62,3 +62,12 @@ img {
 .hidden {
   display: none;
 }
+
+.form-item{
+  display: flex;
+  flex-direction: column;
+}
+
+form {
+  display: flex;
+}

@@ -41,6 +41,7 @@ function App() {
   const [response, setResponse] = useState("")
   const [gameEnd, setGameEnd] = useState(false)
   const [finalTime , setFinalTime] = useState("")
+  const [name , setName] = useState("")
 
     
      
@@ -171,6 +172,12 @@ function App() {
     }
     
   }
+
+  const handleChange = (event) => {
+    setName(event.target.value)
+  }
+  console.log(name)
+  
  
 
   return (
@@ -188,7 +195,12 @@ function App() {
         </div>
       </div>
       <div id="response">{response}</div>
-      {gameEnd ? <Form /> : ""}
+      {gameEnd ? 
+        <Form 
+          finalTime = {finalTime} 
+          handleChange = {handleChange} 
+        /> : ""
+      }
       
     </div>
   );
