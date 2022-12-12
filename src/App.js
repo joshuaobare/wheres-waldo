@@ -1,5 +1,6 @@
 import image from "./images/whereswaldo.jpg"
 import Nav from "./components/Nav";
+import Form from "./components/Form"
 import app from "./index"
 import {
   getFirestore,
@@ -170,8 +171,7 @@ function App() {
     }
     
   }
-
-  
+ 
 
   return (
     <div className="App">
@@ -188,6 +188,7 @@ function App() {
         </div>
       </div>
       <div id="response">{response}</div>
+      {gameEnd ? <Form /> : ""}
       
     </div>
   );
