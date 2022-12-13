@@ -180,11 +180,13 @@ function App() {
   
   const handleSubmit = (event) => {
     event.preventDefault()
+    const minutes =  parseInt(finalTime.slice(0,2)) * 60
+    const seconds = parseInt(finalTime.slice(3,5))
 
     async function submitter() {
       await addDoc(collection(getFirestore(), 'leaderboards'), {
         name: name,
-        time: finalTime
+        time: minutes + seconds
       });
     }
     submitter()
