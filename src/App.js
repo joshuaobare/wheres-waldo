@@ -42,26 +42,49 @@ function App() {
   const [gameEnd, setGameEnd] = useState(false)
   const [finalTime , setFinalTime] = useState("")
   const [name , setName] = useState("")
+  const [leaderboard , setLeaderboard] = useState([])
 
     
      
 
   useEffect(() => {
     setStartTime(Date.now())
-    async function fetcher() {
-      const ref = await getDocs(collection(getFirestore(app), "coordinates"))
-      //console.log(ref)
-      ref.forEach((doc) => {
-        const {Odlaw , Waldo , Wilma, Whitebeard} = doc._document.data.value.mapValue.fields
-        //console.log(doc)
-        setOdlawCoords(JSON.parse(Odlaw.stringValue))
-        setWaldoCoords(JSON.parse(Waldo.stringValue))
-        setWilmaCoords(JSON.parse(Wilma.stringValue))
-        setWhitebeardCoords(JSON.parse(Whitebeard.stringValue))
-      })
+    async function coordsFetcher() {
+      try{
+        const ref = await getDocs(collection(getFirestore(app), "coordinates"))
+        //console.log(ref)
+        ref.forEach((doc) => {
+          const {Odlaw , Waldo , Wilma, Whitebeard} = doc._document.data.value.mapValue.fields
+          //console.log(doc)
+          setOdlawCoords(JSON.parse(Odlaw.stringValue))
+          setWaldoCoords(JSON.parse(Waldo.stringValue))
+          setWilmaCoords(JSON.parse(Wilma.stringValue))
+          setWhitebeardCoords(JSON.parse(Whitebeard.stringValue))
+        })
+      } catch(error) {
+        console.error("Error fetching coordinates")
+      }      
     
     }
-    fetcher()
+
+    async function leaderboardFetcher() {
+      try{
+        const ref = await getDocs(collection(getFirestore(app), "leaderboards"))
+        console.log(ref)
+        ref.forEach((doc) => {
+          const {name,time} = doc._document.data.value.mapValue.fields
+          setLeaderboard(prevState => {
+            return [...prevState , {name : name.stringValue , time: parseInt(time.integerValue)}]
+          })
+          
+        })
+      }
+      catch(error){
+        console.error("Error fetching leaderboards")
+      }
+    }
+    coordsFetcher()
+    leaderboardFetcher()
     
   }, [])
 
@@ -109,6 +132,7 @@ function App() {
     
     
   } */
+  console.log(leaderboard)
 
   const handler = (event) => {
     const {bottom , height , left, right , top, width} = event.target.getBoundingClientRect()
@@ -184,12 +208,19 @@ function App() {
     const seconds = parseInt(finalTime.slice(3,5))
 
     async function submitter() {
-      await addDoc(collection(getFirestore(), 'leaderboards'), {
-        name: name,
-        time: minutes + seconds
-      });
+      try {
+        await addDoc(collection(getFirestore(), 'leaderboards'), {
+          name: name,
+          time: minutes + seconds
+        });
+      } catch(error) {
+        console.error("Error writing to DB")
+      }
+      
     }
     submitter()
+
+    setName("")
 
   }
  
