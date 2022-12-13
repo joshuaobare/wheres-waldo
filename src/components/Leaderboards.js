@@ -2,7 +2,7 @@ import uniqid from "uniqid"
 
 export default function Leaderboards(props) {
     const leaderboardData = props.leaderboard
-    leaderboardData.sort((a,b) => parseFloat(b.time) - parseFloat(a.time))
+    leaderboardData.sort((a,b) => parseFloat(a.time) - parseFloat(b.time))
     
     return (
         <div>
