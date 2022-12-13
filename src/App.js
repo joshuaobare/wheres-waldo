@@ -168,14 +168,30 @@ function App() {
       "whitebeard": () => setWhitebeardFound(true)
     }
 
-    if (coords === characterCoords[event.target.dataset.name]) {      
+    const currCoords = [coords.left,coords.top]
+    const testCoords = [characterCoords[event.target.dataset.name].left , characterCoords[event.target.dataset.name].top]
+
+    /*if (coords === characterCoords[event.target.dataset.name]) {      
       characterFound[event.target.dataset.name]()
     } else {
         setResponse("Wrong choice")              
-    }
+    }*/
 
+    if (((currCoords[0] >= testCoords[0] + 75) || (currCoords[0] <= testCoords[0] + 75) ||
+         (currCoords[0] >= testCoords[0] - 75) || (currCoords[0] >= testCoords[0] - 75) ) && 
+        ((currCoords[1] >= testCoords[1] + 75) || (currCoords[1] <= testCoords[1] + 75) ||
+         (currCoords[1] >= testCoords[1] - 75) || (currCoords[1] >= testCoords[1] - 75) )){
+          characterFound[event.target.dataset.name]()
+          setResponse("Character Found!")
+            
+    }else {
+      setResponse("Wrong choice")              
+  }
+
+    console.log(currCoords)
+    console.log(characterCoords[event.target.dataset.name])
     // if all characters are found the target box is hidden
-    if (!odlawFound && !waldoFound && !wilmaFound && !whitebeardFound) {
+    if (odlawFound && waldoFound && wilmaFound && whitebeardFound) {
       setCoords(prevState => {
         return {...prevState, display:"none"}
       })
@@ -224,6 +240,11 @@ function App() {
     setName("")
 
   }
+
+  console.log("waldoFound:",waldoFound)
+  console.log("odlawFound:",odlawFound)
+  console.log("wilmaFound:",wilmaFound)
+  console.log("whitebeardFound:",whitebeardFound)
  
 
   return (
