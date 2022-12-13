@@ -1,6 +1,7 @@
 import image from "./images/whereswaldo.jpg"
 import Nav from "./components/Nav";
 import Form from "./components/Form"
+import Leaderboards from "./components/Leaderboards";
 import app from "./index"
 import {
   getFirestore,
@@ -70,7 +71,7 @@ function App() {
     async function leaderboardFetcher() {
       try{
         const ref = await getDocs(collection(getFirestore(app), "leaderboards"))
-        console.log(ref)
+        //console.log(ref)
         ref.forEach((doc) => {
           const {name,time} = doc._document.data.value.mapValue.fields
           setLeaderboard(prevState => {
@@ -132,7 +133,7 @@ function App() {
     
     
   } */
-  console.log(leaderboard)
+  
 
   const handler = (event) => {
     const {bottom , height , left, right , top, width} = event.target.getBoundingClientRect()
@@ -248,7 +249,7 @@ function App() {
           handleSubmit = {handleSubmit} 
         /> : ""
       }
-      
+      <Leaderboards leaderboard={leaderboard}/>
     </div>
   );
 }
