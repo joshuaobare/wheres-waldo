@@ -1,6 +1,6 @@
 export default function Form(props) {
     return(
-        <form>
+        <form onSubmit={props.handleSubmit}>
             <div className="form-item">
                 <label htmlFor="name">Name</label>
                 <input 
@@ -14,6 +14,9 @@ export default function Form(props) {
             <div className="form-item">
                 <div>Time</div>
                 <div>{props.finalTime}</div>
+            </div>
+            <div>
+                <button>Submit</button>
             </div>
         </form>
     )

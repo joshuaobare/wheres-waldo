@@ -176,8 +176,20 @@ function App() {
   const handleChange = (event) => {
     setName(event.target.value)
   }
-  console.log(name)
+  //console.log(name)
   
+  const handleSubmit = (event) => {
+    event.preventDefault()
+
+    async function submitter() {
+      await addDoc(collection(getFirestore(), 'leaderboards'), {
+        name: name,
+        time: finalTime
+      });
+    }
+    submitter()
+
+  }
  
 
   return (
@@ -198,7 +210,9 @@ function App() {
       {gameEnd ? 
         <Form 
           finalTime = {finalTime} 
-          handleChange = {handleChange} 
+          handleChange = {handleChange}
+          name = {name}
+          handleSubmit = {handleSubmit} 
         /> : ""
       }
       
