@@ -106,6 +106,8 @@ function App() {
         return `${minutes}:${seconds}`
       })
     }, 1000)
+    gameEndTest()
+    
   } , [startTime , timer])
   
   
@@ -177,43 +179,48 @@ function App() {
         setResponse("Wrong choice")              
     }*/
 
-    if (((currCoords[0] >= testCoords[0] + 75) || (currCoords[0] <= testCoords[0] + 75) ||
-         (currCoords[0] >= testCoords[0] - 75) || (currCoords[0] >= testCoords[0] - 75) ) && 
-        ((currCoords[1] >= testCoords[1] + 75) || (currCoords[1] <= testCoords[1] + 75) ||
-         (currCoords[1] >= testCoords[1] - 75) || (currCoords[1] >= testCoords[1] - 75) )){
+    if (((currCoords[0] >= testCoords[0] - 75) && (currCoords[0] <= testCoords[0] + 75)  ) && 
+        ((currCoords[1] >= testCoords[1] - 75) && (currCoords[1] <= testCoords[1] + 75)  )){
           characterFound[event.target.dataset.name]()
-          setResponse("Character Found!")
+          setResponse(`${event.target.dataset.name} Found!`)
             
     }else {
       setResponse("Wrong choice")              
   }
 
     console.log(currCoords)
-    console.log(characterCoords[event.target.dataset.name])
+    console.log(testCoords)
     // if all characters are found the target box is hidden
+    
+    
+
+    
+    
+  }
+
+  const gameEndTest = () => {
     if (odlawFound && waldoFound && wilmaFound && whitebeardFound) {
-      setCoords(prevState => {
-        return {...prevState, display:"none"}
-      })
+      setCoords({display:"none"})
       
       setGameEnd(true)
-
+  
       setFinalTime(() => {
         const time = Date.now() - startTime
         let minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
         let seconds = Math.floor((time % (1000 * 60)) / 1000);
-
+  
         if(minutes<10) {minutes = "0"+minutes}
         if(seconds<10) {seconds = "0"+seconds}
-
+  
         return `${minutes}:${seconds}`
       })
-
-
+  
+  
     }
-    
   }
+  
 
+  
   const handleChange = (event) => {
     setName(event.target.value)
   }
@@ -241,10 +248,11 @@ function App() {
 
   }
 
-  console.log("waldoFound:",waldoFound)
+  /*console.log("waldoFound:",waldoFound)
   console.log("odlawFound:",odlawFound)
   console.log("wilmaFound:",wilmaFound)
-  console.log("whitebeardFound:",whitebeardFound)
+  console.log("whitebeardFound:",whitebeardFound)*/
+  console.log(coords)
  
 
   return (
