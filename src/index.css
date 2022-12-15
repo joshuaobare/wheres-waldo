@@ -94,3 +94,16 @@ label {
   width: 50px;
   font-weight: bolder;
 }
+
+.character-icon {
+  height: 60px;
+  width: 51px;
+  padding-top: 10px;
+}
+
+
+.character-icon-section {
+  display: flex;
+  gap: 20px;
+
+}

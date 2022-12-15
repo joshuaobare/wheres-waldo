@@ -217,7 +217,15 @@ function App() {
 
   return (
     <div className="App">
-      <Nav timer= {timer} finalTime={finalTime} gameEnd={gameEnd}/>
+      <Nav 
+        timer= {timer} 
+        finalTime={finalTime} 
+        gameEnd={gameEnd}
+        waldoFound = {waldoFound}
+        odlawFound = {odlawFound}
+        whitebeardFound = {whitebeardFound}
+        wilmaFound = {wilmaFound}
+        />
       {gameEnd ? 
         <Form 
           finalTime = {finalTime} 
