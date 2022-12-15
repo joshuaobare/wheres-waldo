@@ -68,26 +68,29 @@ function App() {
     
     }
 
-    async function leaderboardFetcher() {
-      try{
-        const ref = await getDocs(collection(getFirestore(app), "leaderboards"))
-        //console.log(ref)
-        ref.forEach((doc) => {
-          const {name,time} = doc._document.data.value.mapValue.fields
-          setLeaderboard(prevState => {
-            return [...prevState , {name : name.stringValue , time: parseInt(time.integerValue)}]
-          })
-          
-        })
-      }
-      catch(error){
-        console.error("Error fetching leaderboards")
-      }
-    }
+    
     coordsFetcher()
     leaderboardFetcher()
     
   }, [])
+
+  async function leaderboardFetcher() {
+    try{
+      setLeaderboard([])
+      const ref = await getDocs(collection(getFirestore(app), "leaderboards"))
+      //console.log(ref)
+      ref.forEach((doc) => {
+        const {name,time} = doc._document.data.value.mapValue.fields
+        setLeaderboard(prevState => {
+          return [...prevState , {name : name.stringValue , time: parseInt(time.integerValue)}]
+        })
+        
+      })
+    }
+    catch(error){
+      console.error("Error fetching leaderboards")
+    }
+  }
 
   useEffect(() => {
     const gameEndTest = () => {
@@ -203,6 +206,7 @@ function App() {
       
     }
     submitter()
+    leaderboardFetcher()
 
     setName("")
 
