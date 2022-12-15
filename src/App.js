@@ -89,9 +89,30 @@ function App() {
     
   }, [])
 
-  /*useEffect(() => {
+  useEffect(() => {
+    const gameEndTest = () => {
+      if (odlawFound && waldoFound && wilmaFound && whitebeardFound) {
+        setCoords({display:"none"})
+        
+        setGameEnd(true)
     
-  }, [coords])*/
+        setFinalTime(() => {
+          const time = Date.now() - startTime
+          let minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
+          let seconds = Math.floor((time % (1000 * 60)) / 1000);
+    
+          if(minutes<10) {minutes = "0"+minutes}
+          if(seconds<10) {seconds = "0"+seconds}
+    
+          return `${minutes}:${seconds}`
+        })
+    
+    
+      }
+    }
+    gameEndTest()
+    
+  }, [waldoFound , odlawFound, wilmaFound, whitebeardFound, startTime])
 
   useEffect(() => {
     setTimeout(()=> {
@@ -106,46 +127,17 @@ function App() {
         return `${minutes}:${seconds}`
       })
     }, 1000)
-    gameEndTest()
+    
     
   } , [startTime , timer])
   
-  
-  /* useEffect(() => {
-    
-      saveCoords(coords)
-    
-    
-  }, [coords])
-
-  async function saveCoords(coord) {
-
-    if (coord === {}) {
-      return
-    }else {
-      try {
-        await addDoc(collection(getFirestore(), 'coordinates'), {
-          coords : coord
-        });
-      }
-      catch(error) {
-        console.error('Error writing new message to Firebase Database', error);
-      }
-    }
-    
-    
-  } */
-  
+   
 
   const handler = (event) => {
     const {bottom , height , left, right , top, width} = event.target.getBoundingClientRect()
     
     setCoords(prevState => {
       return {...prevState ,
-              /*bottom: bottom,
-              height: height,
-              width: width,
-              right: right,*/
               top: event.clientY -25,
               left: event.clientX -25,
               
@@ -172,13 +164,7 @@ function App() {
 
     const currCoords = [coords.left,coords.top]
     const testCoords = [characterCoords[event.target.dataset.name].left , characterCoords[event.target.dataset.name].top]
-
-    /*if (coords === characterCoords[event.target.dataset.name]) {      
-      characterFound[event.target.dataset.name]()
-    } else {
-        setResponse("Wrong choice")              
-    }*/
-
+    
     if (((currCoords[0] >= testCoords[0] - 75) && (currCoords[0] <= testCoords[0] + 75)  ) && 
         ((currCoords[1] >= testCoords[1] - 75) && (currCoords[1] <= testCoords[1] + 75)  )){
           characterFound[event.target.dataset.name]()
@@ -190,42 +176,16 @@ function App() {
 
     console.log(currCoords)
     console.log(testCoords)
-    // if all characters are found the target box is hidden
-    
-    
-
-    
-    
+        
   }
 
-  const gameEndTest = () => {
-    if (odlawFound && waldoFound && wilmaFound && whitebeardFound) {
-      setCoords({display:"none"})
-      
-      setGameEnd(true)
-  
-      setFinalTime(() => {
-        const time = Date.now() - startTime
-        let minutes = Math.floor((time % (1000 * 60 * 60)) / (1000 * 60));
-        let seconds = Math.floor((time % (1000 * 60)) / 1000);
-  
-        if(minutes<10) {minutes = "0"+minutes}
-        if(seconds<10) {seconds = "0"+seconds}
-  
-        return `${minutes}:${seconds}`
-      })
-  
-  
-    }
-  }
   
 
   
   const handleChange = (event) => {
     setName(event.target.value)
   }
-  //console.log(name)
-  
+    
   const handleSubmit = (event) => {
     event.preventDefault()
     const minutes =  parseInt(finalTime.slice(0,2)) * 60
@@ -248,10 +208,6 @@ function App() {
 
   }
 
-  /*console.log("waldoFound:",waldoFound)
-  console.log("odlawFound:",odlawFound)
-  console.log("wilmaFound:",wilmaFound)
-  console.log("whitebeardFound:",whitebeardFound)*/
   console.log(coords)
  
 
