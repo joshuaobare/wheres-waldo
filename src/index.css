@@ -65,9 +65,32 @@ img {
 
 .form-item{
   display: flex;
-  flex-direction: column;
+  
 }
 
 form {
   display: flex;
+  flex-direction: column;
+  gap: 70px;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+}
+button {
+  cursor: pointer;
+  background-color: #fff;
+  border: none;
+  outline: none;
+  font-size: larger;
+}
+
+.form-main {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+label {
+  width: 50px;
+  font-weight: bolder;
 }

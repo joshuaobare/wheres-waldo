@@ -44,9 +44,26 @@ function App() {
   const [finalTime , setFinalTime] = useState("")
   const [name , setName] = useState("")
   const [leaderboard , setLeaderboard] = useState([])
+  const [dialogOpen , setDialogOpen] = useState(false)
 
     
-     
+  async function leaderboardFetcher() {
+    try{
+      setLeaderboard([])
+      const ref = await getDocs(collection(getFirestore(app), "leaderboards"))
+      //console.log(ref)
+      ref.forEach((doc) => {
+        const {name,time} = doc._document.data.value.mapValue.fields
+        setLeaderboard(prevState => {
+          return [...prevState , {name : name.stringValue , time: parseInt(time.integerValue)}]
+        })
+        
+      })
+    }
+    catch(error){
+      console.error("Error fetching leaderboards")
+    }
+  } 
 
   useEffect(() => {
     setStartTime(Date.now())
@@ -66,31 +83,12 @@ function App() {
         console.error("Error fetching coordinates")
       }      
     
-    }
-
-    
+    }    
     coordsFetcher()
     leaderboardFetcher()
     
   }, [])
-
-  async function leaderboardFetcher() {
-    try{
-      setLeaderboard([])
-      const ref = await getDocs(collection(getFirestore(app), "leaderboards"))
-      //console.log(ref)
-      ref.forEach((doc) => {
-        const {name,time} = doc._document.data.value.mapValue.fields
-        setLeaderboard(prevState => {
-          return [...prevState , {name : name.stringValue , time: parseInt(time.integerValue)}]
-        })
-        
-      })
-    }
-    catch(error){
-      console.error("Error fetching leaderboards")
-    }
-  }
+  
 
   useEffect(() => {
     const gameEndTest = () => {
@@ -98,6 +96,7 @@ function App() {
         setCoords({display:"none"})
         
         setGameEnd(true)
+        setDialogOpen(true)
     
         setFinalTime(() => {
           const time = Date.now() - startTime
@@ -116,6 +115,7 @@ function App() {
     gameEndTest()
     
   }, [waldoFound , odlawFound, wilmaFound, whitebeardFound, startTime])
+
 
   useEffect(() => {
     setTimeout(()=> {
@@ -207,8 +207,8 @@ function App() {
     }
     submitter()
     leaderboardFetcher()
-
     setName("")
+    setDialogOpen(false)
 
   }
 
@@ -218,6 +218,15 @@ function App() {
   return (
     <div className="App">
       <Nav timer= {timer} finalTime={finalTime} gameEnd={gameEnd}/>
+      {gameEnd ? 
+        <Form 
+          finalTime = {finalTime} 
+          handleChange = {handleChange}
+          name = {name}
+          handleSubmit = {handleSubmit}
+          dialogOpen = {dialogOpen} 
+        /> : ""
+      }
       <img onClick={handler} src={image} alt="" />
       <div style={coords} className="target-box">
         <div className="square"></div>
@@ -230,15 +239,8 @@ function App() {
         </div>
       </div>
       <div id="response">{response}</div>
-      {gameEnd ? 
-        <Form 
-          finalTime = {finalTime} 
-          handleChange = {handleChange}
-          name = {name}
-          handleSubmit = {handleSubmit} 
-        /> : ""
-      }
-      <Leaderboards leaderboard={leaderboard}/>
+      
+      {/*<Leaderboards leaderboard={leaderboard}/>*/}
     </div>
   );
 }
