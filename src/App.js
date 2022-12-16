@@ -41,6 +41,7 @@ function App() {
   const [startTime , setStartTime] = useState("")
   const [timer, setTimer] = useState("")
   const [response, setResponse] = useState("")
+  const [gameStart, setGameStart] = useState(false)
   const [gameEnd, setGameEnd] = useState(false)
   const [finalTime , setFinalTime] = useState("")
   const [name , setName] = useState("")
@@ -65,7 +66,9 @@ function App() {
     catch(error){
       console.error("Error fetching leaderboards")
     }
-  } 
+  }
+  
+  const capitalize = word => word.charAt(0).toUpperCase() + word.slice(1)
 
   useEffect(() => {
     setStartTime(Date.now())
@@ -95,8 +98,8 @@ function App() {
   useEffect(() => {
     const gameEndTest = () => {
       if (odlawFound && waldoFound && wilmaFound && whitebeardFound) {
-        setCoords({display:"none"})
-        
+        //setCoords({display:"none"})
+        setGameStart(false)
         setGameEnd(true)
         setDialogOpen(true)
     
@@ -140,16 +143,17 @@ function App() {
 
   const handler = (event) => {
     const {bottom , height , left, right , top, width} = event.target.getBoundingClientRect()
-    
+
+    setGameStart(true)
     setCoords(prevState => {
       return {...prevState ,
               top: event.clientY -25,
               left: event.clientX -25,
               
             }})
-    console.log("ran")
+    /*console.log("ran")
     console.log(top , left)
-    console.log(event.clientY, event.clientX)
+    console.log(event.clientY, event.clientX)*/
   }
 
   const charChecker = (event) => {
@@ -173,7 +177,7 @@ function App() {
     if (((currCoords[0] >= testCoords[0] - 75) && (currCoords[0] <= testCoords[0] + 75)  ) && 
         ((currCoords[1] >= testCoords[1] - 75) && (currCoords[1] <= testCoords[1] + 75)  )){
           characterFound[event.target.dataset.name]()
-          setResponse(`${event.target.dataset.name} Found!`)
+          setResponse(`${capitalize(event.target.dataset.name)} Found!`)
             
     }else {
       setResponse("Wrong choice")              
@@ -257,7 +261,8 @@ function App() {
           coords = {coords}
           handler = {handler}
           charChecker = {charChecker}
-          response = {response}     
+          response = {response}
+          gameStart = {gameStart}     
           />}  
         />
         <Route path = "/leaderboards" exact element = {<Leaderboards leaderboard= {leaderboard}/>}/>

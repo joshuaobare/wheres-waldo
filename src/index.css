@@ -24,13 +24,15 @@ nav {
   gap: 50px;
   padding-right: 20px;
 }
-img {
+.main-img {
   width: 75vw;
   height: 85vh;
+  border: solid black 2px;
+  margin-top: 10px;
 }
 
 .target-box {
-  display: flex;
+  display: none;
   position: absolute;
   gap: 5px;
   align-items: center;
@@ -143,4 +145,21 @@ td {
 table {
   border-collapse: collapse;
   width: 350px;
+}
+
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  
+}
+
+a:hover {
+  transform: scale(1.1);
 }

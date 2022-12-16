@@ -8,7 +8,7 @@ import { Link } from "react-router-dom"
 
 export default function Nav(props) {
 
-    const style = { opacity: 0.7}
+    const style = { opacity: 0.5}
      
 
     const {waldoFound , wilmaFound , odlawFound , whitebeardFound , leaderboardActive, leaderboardHandler} = props

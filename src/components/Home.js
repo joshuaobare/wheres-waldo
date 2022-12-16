@@ -1,11 +1,15 @@
 import image from "../images/whereswaldo.jpg"
 export default function Home(props) {
 
-    const {handler , coords,charChecker,response} = props
+    const {handler , coords,charChecker,response, gameStart} = props
+    
+    const display = gameStart ? "flex" : "none"
+    const style = {...coords , display : display}
+
     return (
-        <div>
-            <img onClick={handler} src={image} alt="" />
-            <div style={coords} className="target-box">
+        <div className="home">
+            <img onClick={handler} src={image} alt="characters" className="main-img"/>
+            <div style={style} className="target-box">
                 <div className="square"></div>
                 <div className="character-list">
                 <div data-name="waldo" className="char-name" onClick={charChecker}>Waldo</div>
