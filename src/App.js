@@ -3,6 +3,7 @@ import Nav from "./components/Nav";
 import Form from "./components/Form"
 import Leaderboards from "./components/Leaderboards";
 import app from "./index"
+import { HashRouter , Routes , Route } from "react-router-dom";
 import {
   getFirestore,
   collection,
@@ -214,10 +215,22 @@ function App() {
   }
 
   console.log(coords)
+
+  const leaderboardHandler = (value) => {
+
+    if (value === "home") {
+      setLeaderboardActive(false)
+      setStartTime(Date.now())
+    } else {
+      setLeaderboardActive(true)
+    }
+
+  }
  
 
   return (
-    <div className="App">
+    <HashRouter basename = "/">
+      <div className="App">
       <Nav 
         timer= {timer} 
         finalTime={finalTime} 
@@ -226,6 +239,8 @@ function App() {
         odlawFound = {odlawFound}
         whitebeardFound = {whitebeardFound}
         wilmaFound = {wilmaFound}
+        leaderboardActive = {leaderboardActive}
+        leaderboardHandler = {leaderboardHandler}
         />
       {gameEnd ? 
         <Form 
@@ -236,30 +251,22 @@ function App() {
           dialogOpen = {dialogOpen} 
         /> : ""
       }
-      {/*<img onClick={handler} src={image} alt="" />
-      <div style={coords} className="target-box">
-        <div className="square"></div>
-        <div className="character-list">
-          <div data-name="waldo" className="char-name" onClick={charChecker}>Waldo</div>
-          <div data-name="odlaw" className="char-name" onClick={charChecker}>Odlaw</div>
-          <div data-name="wilma" className="char-name" onClick={charChecker}>Wilma</div>
-          <div data-name="whitebeard" className="char-name" onClick={charChecker}>Whitebeard</div>
-          
-        </div>
-      </div>
-      <div id="response">{response}</div>
+      <Routes>
+        <Route path = "/" exact element = {
+          <Home 
+          coords = {coords}
+          handler = {handler}
+          charChecker = {charChecker}
+          response = {response}     
+          />}  
+        />
+        <Route path = "/leaderboards" exact element = {<Leaderboards leaderboard= {leaderboard}/>}/>
+      </Routes>
       
-      <Leaderboards leaderboard={leaderboard}/>*/}
-    <Home 
-    coords = {coords}
-    handler = {handler}
-    charChecker = {charChecker}
-    response = {response}
-    
-    
-    />
 
     </div>
+    </HashRouter>
+    
   );
 }
 

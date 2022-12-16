@@ -3,14 +3,17 @@ import Waldo from "../images/characters/waldo.gif"
 import Wilma from  "../images/characters/wilma.gif"
 import Whitebeard from  "../images/characters/whitebeard.gif"
 import Odlaw from  "../images/characters/odlaw.gif"
+import { Link } from "react-router-dom"
 
 
 export default function Nav(props) {
 
     const style = { opacity: 0.7}
-    const style2 = { color: "white" } 
+     
 
-    const {waldoFound , wilmaFound , odlawFound , whitebeardFound} = props
+    const {waldoFound , wilmaFound , odlawFound , whitebeardFound , leaderboardActive, leaderboardHandler} = props
+
+    const fontStyle = { color: leaderboardActive ? "white" : "black" }
 
     return (
         <nav>
@@ -36,9 +39,13 @@ export default function Nav(props) {
 
             <div className="nav-list">
                 <ul>
-                    <li>Home</li>
-                    <li>Leaderboards</li>
-                    <li className="timer">{!props.gameEnd ? props.timer : props.finalTime}</li>                    
+                    <Link to = "/">
+                        <li onClick={() => leaderboardHandler("home")}>Home</li>
+                    </Link>
+                    <Link to ="/leaderboards">
+                        <li onClick={() => leaderboardHandler("lb")}>Leaderboards</li>
+                    </Link>                    
+                    <li className="timer" style={fontStyle}>{!props.gameEnd ? props.timer : props.finalTime}</li>                    
                 </ul>
             </div>
         </nav>
