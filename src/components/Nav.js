@@ -8,6 +8,7 @@ import Odlaw from  "../images/characters/odlaw.gif"
 export default function Nav(props) {
 
     const style = { opacity: 0.7}
+    const style2 = { color: "white" } 
 
     const {waldoFound , wilmaFound , odlawFound , whitebeardFound} = props
 
@@ -37,7 +38,7 @@ export default function Nav(props) {
                 <ul>
                     <li>Home</li>
                     <li>Leaderboards</li>
-                    <li>{!props.gameEnd ? props.timer : props.finalTime}</li>                    
+                    <li className="timer">{!props.gameEnd ? props.timer : props.finalTime}</li>                    
                 </ul>
             </div>
         </nav>

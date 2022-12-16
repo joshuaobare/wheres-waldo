@@ -45,6 +45,7 @@ function App() {
   const [name , setName] = useState("")
   const [leaderboard , setLeaderboard] = useState([])
   const [dialogOpen , setDialogOpen] = useState(false)
+  const [leaderboardActive , setLeaderboardActive] = useState(false)
 
     
   async function leaderboardFetcher() {
