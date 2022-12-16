@@ -105,5 +105,42 @@ label {
 .character-icon-section {
   display: flex;
   gap: 20px;
+  margin-left: 150px;
 
+}
+
+.leaderboards{
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ flex-direction: column;
+}
+
+.leaderboard-item {
+  font-size: larger;
+  font-weight: lighter;
+
+}
+
+.leaderboard-item:hover {
+  background-color: lightgray;
+}
+
+.leaderboard-item-number {
+  font-weight: 400;
+  padding-right: 5px;
+}
+
+td {
+  cursor: pointer;
+}
+
+.leaderboard-header {
+  background-color: #D92121;
+  color: white;
+  font-size: larger;
+}
+table {
+  border-collapse: collapse;
+  width: 350px;
 }

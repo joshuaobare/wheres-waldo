@@ -5,11 +5,15 @@ export default function Leaderboards(props) {
     leaderboardData.sort((a,b) => parseFloat(a.time) - parseFloat(b.time))
     
     return (
-        <div>
+        <div className="leaderboards">
             <h1>Leaderboards</h1>        
-            <div>
-                
-                {leaderboardData.map(data => {   
+            <table>
+                <tr className="leaderboard-header">
+                    <th>#</th>
+                    <th>Username</th>
+                    <th>Time</th>
+                </tr>
+                {leaderboardData.map((data,index) => {   
                     let minutes = Math.floor((data.time / 60 ));                    
                     let seconds = data.time - (minutes*60)                    
                     if(minutes<10) {minutes = "0"+minutes}
@@ -17,10 +21,14 @@ export default function Leaderboards(props) {
                     const time = `${minutes}:${seconds}`                    
 
                     return (
-                    <div key={uniqid()}>{data.name} : {time}</div>
+                        <tr key={uniqid()} className="leaderboard-item">
+                            <td className="leaderboard-item-number">{index+1} </td>
+                            <td>{data.name}</td> 
+                            <td>{time}</td>
+                        </tr>                    
                     )
                 })}
-            </div>
+            </table>
         </div>
     )
 }

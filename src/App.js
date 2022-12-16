@@ -235,7 +235,7 @@ function App() {
           dialogOpen = {dialogOpen} 
         /> : ""
       }
-      <img onClick={handler} src={image} alt="" />
+      {/*<img onClick={handler} src={image} alt="" />
       <div style={coords} className="target-box">
         <div className="square"></div>
         <div className="character-list">
@@ -246,9 +246,9 @@ function App() {
           
         </div>
       </div>
-      <div id="response">{response}</div>
+      <div id="response">{response}</div>*/}
       
-      {/*<Leaderboards leaderboard={leaderboard}/>*/}
+      <Leaderboards leaderboard={leaderboard}/>
     </div>
   );
 }
