@@ -1,4 +1,4 @@
-import image from "./images/whereswaldo.jpg"
+import Home from "./components/Home";
 import Nav from "./components/Nav";
 import Form from "./components/Form"
 import Leaderboards from "./components/Leaderboards";
@@ -247,9 +247,18 @@ function App() {
           
         </div>
       </div>
-      <div id="response">{response}</div>*/}
+      <div id="response">{response}</div>
       
-      <Leaderboards leaderboard={leaderboard}/>
+      <Leaderboards leaderboard={leaderboard}/>*/}
+    <Home 
+    coords = {coords}
+    handler = {handler}
+    charChecker = {charChecker}
+    response = {response}
+    
+    
+    />
+
     </div>
   );
 }
