@@ -12,11 +12,10 @@ export default function Home(props) {
             <div style={style} className="target-box">
                 <div className="square"></div>
                 <div className="character-list">
-                <div data-name="waldo" className="char-name" onClick={charChecker}>Waldo</div>
-                <div data-name="odlaw" className="char-name" onClick={charChecker}>Odlaw</div>
-                <div data-name="wilma" className="char-name" onClick={charChecker}>Wilma</div>
-                <div data-name="whitebeard" className="char-name" onClick={charChecker}>Whitebeard</div>
-                
+                    <div data-name="waldo" className="char-name" onClick={charChecker}>Waldo</div>
+                    <div data-name="odlaw" className="char-name" onClick={charChecker}>Odlaw</div>
+                    <div data-name="wilma" className="char-name" onClick={charChecker}>Wilma</div>
+                    <div data-name="whitebeard" className="char-name" onClick={charChecker}>Whitebeard</div>                
                 </div>
             </div>
             <div id="response">{response}</div>

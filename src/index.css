@@ -29,6 +29,7 @@ nav {
   height: 85vh;
   border: solid black 2px;
   margin-top: 10px;
+  cursor: pointer;
 }
 
 .target-box {
@@ -44,21 +45,29 @@ nav {
 .character-list {
   justify-self: flex-start;
   text-align: left;
+  border: 2px solid black;
+  background-color: #fff;
   
 }
 
 .square {
   width: 60px;
   height: 60px;
-  border: 4px solid red;
+  border: 4px dashed red;
+  border-radius: 100%;
   
 }
 .char-name {
   cursor: pointer;
-  color: red;
+  color: black;
+  background-color: white;
+  border-bottom: 1px solid black;
+  
+  
 }
 .char-name:hover {
   transform: scale(1.1);
+  border: 1px solid black;
 }
 
 .hidden {

@@ -3,28 +3,14 @@ import Nav from "./components/Nav";
 import Form from "./components/Form"
 import Leaderboards from "./components/Leaderboards";
 import app from "./index"
-import { HashRouter , Routes , Route } from "react-router-dom";
+import { HashRouter , Routes , Route , redirect, useNavigate } from "react-router-dom";
 import {
   getFirestore,
   collection,
-  addDoc,
-  query,
-  orderBy,
-  limit,
-  onSnapshot,
-  setDoc,
-  updateDoc,
-  doc,
-  serverTimestamp,
-  getDoc,
+  addDoc,  
   getDocs
 } from 'firebase/firestore';
-import {
-  getStorage,
-  ref,
-  uploadBytesResumable,
-  getDownloadURL,
-} from 'firebase/storage';
+
 import { useEffect, useState } from "react";
 
 function App() {
@@ -48,13 +34,13 @@ function App() {
   const [leaderboard , setLeaderboard] = useState([])
   const [dialogOpen , setDialogOpen] = useState(false)
   const [leaderboardActive , setLeaderboardActive] = useState(false)
+  const navigate = useNavigate()
 
     
   async function leaderboardFetcher() {
     try{
       setLeaderboard([])
-      const ref = await getDocs(collection(getFirestore(app), "leaderboards"))
-      //console.log(ref)
+      const ref = await getDocs(collection(getFirestore(app), "leaderboards"))      
       ref.forEach((doc) => {
         const {name,time} = doc._document.data.value.mapValue.fields
         setLeaderboard(prevState => {
@@ -74,11 +60,9 @@ function App() {
     setStartTime(Date.now())
     async function coordsFetcher() {
       try{
-        const ref = await getDocs(collection(getFirestore(app), "coordinates"))
-        //console.log(ref)
+        const ref = await getDocs(collection(getFirestore(app), "coordinates"))        
         ref.forEach((doc) => {
-          const {Odlaw , Waldo , Wilma, Whitebeard} = doc._document.data.value.mapValue.fields
-          //console.log(doc)
+          const {Odlaw , Waldo , Wilma, Whitebeard} = doc._document.data.value.mapValue.fields          
           setOdlawCoords(JSON.parse(Odlaw.stringValue))
           setWaldoCoords(JSON.parse(Waldo.stringValue))
           setWilmaCoords(JSON.parse(Wilma.stringValue))
@@ -94,11 +78,11 @@ function App() {
     
   }, [])
   
-
+  // This hook constantly tests for whether the game is over
   useEffect(() => {
     const gameEndTest = () => {
       if (odlawFound && waldoFound && wilmaFound && whitebeardFound) {
-        //setCoords({display:"none"})
+         
         setGameStart(false)
         setGameEnd(true)
         setDialogOpen(true)
@@ -140,28 +124,25 @@ function App() {
   } , [startTime , timer])
   
    
-
+  // setCoords is used to position the target circle
   const handler = (event) => {
-    const {bottom , height , left, right , top, width} = event.target.getBoundingClientRect()
-
     setGameStart(true)
     setCoords(prevState => {
       return {...prevState ,
-              top: event.clientY -25,
-              left: event.clientX -25,
+              top: event.clientY -35,
+              left: event.clientX -30,
               
             }})
-    /*console.log("ran")
-    console.log(top , left)
-    console.log(event.clientY, event.clientX)*/
+    
   }
 
+  // charChecker checks whether the active coordinate is the same as that particular character's coord 
   const charChecker = (event) => {
     const characterCoords = {
-      "waldo": {...waldoCoords, top: waldoCoords.top + 25, left: waldoCoords.left + 25},
-      "wilma": {...wilmaCoords, top: wilmaCoords.top + 25, left: wilmaCoords.left + 25},
-      "odlaw": {...odlawCoords, top: odlawCoords.top + 25, left: odlawCoords.left + 25},
-      "whitebeard": {...whitebeardCoords, top: whitebeardCoords.top + 25, left:whitebeardCoords.left + 25}
+      "waldo": {...waldoCoords, top: waldoCoords.top + 35, left: waldoCoords.left + 30},
+      "wilma": {...wilmaCoords, top: wilmaCoords.top + 35, left: wilmaCoords.left + 30},
+      "odlaw": {...odlawCoords, top: odlawCoords.top + 35, left: odlawCoords.left + 30},
+      "whitebeard": {...whitebeardCoords, top: whitebeardCoords.top + 35, left:whitebeardCoords.left + 30}
     }
 
     const characterFound = {
@@ -182,20 +163,15 @@ function App() {
     }else {
       setResponse("Wrong choice")              
   }
-
-    console.log(currCoords)
-    console.log(testCoords)
         
-  }
-
-  
+  } 
 
   
   const handleChange = (event) => {
     setName(event.target.value)
   }
-    
-  const handleSubmit = (event) => {
+    //const navigate = useNavigate()
+  const handleSubmit = (event) => {    
     event.preventDefault()
     const minutes =  parseInt(finalTime.slice(0,2)) * 60
     const seconds = parseInt(finalTime.slice(3,5))
@@ -215,6 +191,8 @@ function App() {
     leaderboardFetcher()
     setName("")
     setDialogOpen(false)
+    navigate("/leaderboards")
+    
 
   }
 
@@ -235,41 +213,44 @@ function App() {
   return (
     <HashRouter basename = "/">
       <div className="App">
-      <Nav 
-        timer= {timer} 
-        finalTime={finalTime} 
-        gameEnd={gameEnd}
-        waldoFound = {waldoFound}
-        odlawFound = {odlawFound}
-        whitebeardFound = {whitebeardFound}
-        wilmaFound = {wilmaFound}
-        leaderboardActive = {leaderboardActive}
-        leaderboardHandler = {leaderboardHandler}
-        />
-      {gameEnd ? 
-        <Form 
-          finalTime = {finalTime} 
-          handleChange = {handleChange}
-          name = {name}
-          handleSubmit = {handleSubmit}
-          dialogOpen = {dialogOpen} 
-        /> : ""
-      }
-      <Routes>
-        <Route path = "/" exact element = {
-          <Home 
-          coords = {coords}
-          handler = {handler}
-          charChecker = {charChecker}
-          response = {response}
-          gameStart = {gameStart}     
-          />}  
-        />
-        <Route path = "/leaderboards" exact element = {<Leaderboards leaderboard= {leaderboard}/>}/>
-      </Routes>
+        <Nav 
+          timer= {timer} 
+          finalTime={finalTime} 
+          gameEnd={gameEnd}
+          waldoFound = {waldoFound}
+          odlawFound = {odlawFound}
+          whitebeardFound = {whitebeardFound}
+          wilmaFound = {wilmaFound}
+          leaderboardActive = {leaderboardActive}
+          leaderboardHandler = {leaderboardHandler}
+          />
+        {gameEnd ? 
+          <Form 
+            finalTime = {finalTime} 
+            handleChange = {handleChange}
+            name = {name}
+            handleSubmit = {handleSubmit}
+            dialogOpen = {dialogOpen} 
+          /> : ""
+        }
+        <Routes>
+          <Route path = "/" exact element = {
+            <Home 
+            coords = {coords}
+            handler = {handler}
+            charChecker = {charChecker}
+            response = {response}
+            gameStart = {gameStart}     
+            />}  
+          />
+          <Route path = "/leaderboards" exact element = {
+            <Leaderboards leaderboard= {leaderboard}/>
+            }
+          />
+        </Routes>
       
 
-    </div>
+      </div>
     </HashRouter>
     
   );
