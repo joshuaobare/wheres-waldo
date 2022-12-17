@@ -191,7 +191,13 @@ function App() {
     leaderboardFetcher()
     setName("")
     setDialogOpen(false)
-    
+    setGameEnd(false)
+    setWaldoFound(false)
+    setOdlawFound(false)
+    setWhitebeardFound(false)
+    setWilmaFound(false)
+    setResponse("")
+    setLeaderboardActive(true)   
     
 
   }
@@ -203,13 +209,14 @@ function App() {
     if (value === "home") {
       setLeaderboardActive(false)
       setStartTime(Date.now())
+      //window.location.reload()
     } else {
       setLeaderboardActive(true)
     }
 
   }
  
-
+console.log(gameEnd)
   return (
     <HashRouter basename = "/">
       <div className="App">
