@@ -43,7 +43,7 @@ export default function Nav(props) {
                         <li onClick={() => leaderboardHandler("home")}>Home</li>
                     </Link>
                     <Link to ="/leaderboards">
-                        <li onClick={() => leaderboardHandler("lb")}>Leaderboards</li>
+                        <li onClick={() => leaderboardHandler("lb")} id="leaderboards">Leaderboards</li>
                     </Link>                    
                     <li className="timer" style={fontStyle}>{!props.gameEnd ? props.timer : props.finalTime}</li>                    
                 </ul>

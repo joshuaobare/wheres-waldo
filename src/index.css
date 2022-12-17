@@ -18,6 +18,9 @@ nav {
   align-items:center;
   
 }
+nav > h1 {
+  margin-left: 10px;
+}
 .nav-list > ul {
   list-style-type: none;
   display: flex;
@@ -171,4 +174,9 @@ a {
 
 a:hover {
   transform: scale(1.1);
+}
+
+#response {
+  font-weight: bolder;
+  text-transform: uppercase;
 }

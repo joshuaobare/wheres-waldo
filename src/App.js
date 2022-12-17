@@ -3,7 +3,7 @@ import Nav from "./components/Nav";
 import Form from "./components/Form"
 import Leaderboards from "./components/Leaderboards";
 import app from "./index"
-import { HashRouter , Routes , Route , redirect, useNavigate } from "react-router-dom";
+import { HashRouter , Routes , Route } from "react-router-dom";
 import {
   getFirestore,
   collection,
@@ -34,7 +34,7 @@ function App() {
   const [leaderboard , setLeaderboard] = useState([])
   const [dialogOpen , setDialogOpen] = useState(false)
   const [leaderboardActive , setLeaderboardActive] = useState(false)
-  const navigate = useNavigate()
+  
 
     
   async function leaderboardFetcher() {
@@ -170,7 +170,7 @@ function App() {
   const handleChange = (event) => {
     setName(event.target.value)
   }
-    //const navigate = useNavigate()
+  
   const handleSubmit = (event) => {    
     event.preventDefault()
     const minutes =  parseInt(finalTime.slice(0,2)) * 60
@@ -191,7 +191,7 @@ function App() {
     leaderboardFetcher()
     setName("")
     setDialogOpen(false)
-    navigate("/leaderboards")
+    
     
 
   }
@@ -213,6 +213,7 @@ function App() {
   return (
     <HashRouter basename = "/">
       <div className="App">
+      
         <Nav 
           timer= {timer} 
           finalTime={finalTime} 
@@ -223,7 +224,7 @@ function App() {
           wilmaFound = {wilmaFound}
           leaderboardActive = {leaderboardActive}
           leaderboardHandler = {leaderboardHandler}
-          />
+        />
         {gameEnd ? 
           <Form 
             finalTime = {finalTime} 

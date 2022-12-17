@@ -1,12 +1,16 @@
 import { Dialog , DialogContent , DialogTitle } from "@mui/material"
-
+import { useNavigate } from "react-router-dom"
 
 export default function Form(props) {
+    const navigate = useNavigate()
     return(
         <Dialog open = {props.dialogOpen ? "open" : false}>
             <DialogTitle>Enter Your Name</DialogTitle>
             <DialogContent>                
-                <form onSubmit={props.handleSubmit}>
+                <form onSubmit={e => {
+                    props.handleSubmit(e)
+                    navigate("/leaderboards")}}
+                >
                     <div className="form-main">
                         <div className="form-item">
                             <label htmlFor="name">Name:</label>
