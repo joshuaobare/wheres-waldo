@@ -1,22 +1,21 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
 
 nav {
   display: flex;
   justify-content: space-between;
-  align-items:center;
-  
+  align-items: center;
 }
 nav > h1 {
   margin-left: 10px;
@@ -42,7 +41,6 @@ nav > h1 {
   align-items: center;
   /*top: 70%;
   left:63%;*/
-
 }
 
 .character-list {
@@ -50,7 +48,6 @@ nav > h1 {
   text-align: left;
   border: 2px solid black;
   background-color: #fff;
-  
 }
 
 .square {
@@ -58,15 +55,13 @@ nav > h1 {
   height: 60px;
   border: 4px dashed red;
   border-radius: 100%;
-  
 }
 .char-name {
   cursor: pointer;
   color: black;
   background-color: white;
   border-bottom: 1px solid black;
-  
-  
+  transition: transform 100ms ease-in-out;
 }
 .char-name:hover {
   transform: scale(1.1);
@@ -77,9 +72,8 @@ nav > h1 {
   display: none;
 }
 
-.form-item{
+.form-item {
   display: flex;
-  
 }
 
 form {
@@ -115,25 +109,22 @@ label {
   padding-top: 10px;
 }
 
-
 .character-icon-section {
   display: flex;
   gap: 20px;
   margin-left: 150px;
-
 }
 
-.leaderboards{
- display: flex;
- justify-content: center;
- align-items: center;
- flex-direction: column;
+.leaderboards {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .leaderboard-item {
   font-size: larger;
   font-weight: lighter;
-
 }
 
 .leaderboard-item:hover {
@@ -150,7 +141,7 @@ td {
 }
 
 .leaderboard-header {
-  background-color: #D92121;
+  background-color: #d92121;
   color: white;
   font-size: larger;
 }
@@ -169,7 +160,7 @@ table {
 a {
   text-decoration: none;
   color: black;
-  
+  transition: transform 300ms ease-in-out;
 }
 
 a:hover {
@@ -179,4 +170,25 @@ a:hover {
 #response {
   font-weight: bolder;
   text-transform: uppercase;
+}
+
+@media (max-width: 600px) {
+  nav {
+    flex-direction: column;
+  }
+  .character-icon-section {
+    margin-left: 0;
+  }
+
+  .main-img {
+    width: 1444px;
+    height: 812px;
+  }
+  .main-img {
+    width: auto;
+    height: auto;
+  }
+  .home {
+    width: fit-content;
+  }
 }

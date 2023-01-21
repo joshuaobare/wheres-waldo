@@ -12,8 +12,7 @@ const firebaseConfig = {
   storageBucket: "where-s-waldo-8ef97.appspot.com",
   messagingSenderId: "333261028823",
   appId: "1:333261028823:web:2c4bb1e9d2eff87aaf9f92",
-  measurementId: "G-PY2YDLQ3LZ"
+  measurementId: "G-PY2YDLQ3LZ",
 };
 
-
-export {firebaseConfig}
+export { firebaseConfig };
