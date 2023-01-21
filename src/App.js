@@ -60,13 +60,22 @@ function App() {
     setStartTime(Date.now())
     async function coordsFetcher() {
       try{
-        const ref = await getDocs(collection(getFirestore(app), "coordinates"))        
+        const ref = await getDocs(collection(getFirestore(app), "coords"))        
         ref.forEach((doc) => {
-          const {Odlaw , Waldo , Wilma, Whitebeard} = doc._document.data.value.mapValue.fields          
-          setOdlawCoords(JSON.parse(Odlaw.stringValue))
-          setWaldoCoords(JSON.parse(Waldo.stringValue))
-          setWilmaCoords(JSON.parse(Wilma.stringValue))
-          setWhitebeardCoords(JSON.parse(Whitebeard.stringValue))
+          const {Odlaw , Waldo , Wilma, Whitebeard} = doc._document.data.value.mapValue.fields 
+          
+          const viewportWidth = window.innerWidth
+          const viewportHeight = window.innerHeight
+          
+          const odlawData = JSON.parse(Odlaw.stringValue)
+          const waldoData = JSON.parse(Waldo.stringValue)
+          const wilmaData = JSON.parse(Wilma.stringValue)
+          const whitebeardData = JSON.parse(Whitebeard.stringValue)
+          
+          setOdlawCoords({top:odlawData.top*viewportHeight , left:odlawData.left*viewportWidth})         
+          setWaldoCoords({top:waldoData.top*viewportHeight , left:waldoData.left*viewportWidth})
+          setWilmaCoords({top:wilmaData.top*viewportHeight , left:wilmaData.left*viewportWidth})
+          setWhitebeardCoords({top:whitebeardData.top*viewportHeight , left:whitebeardData.left*viewportWidth})
         })
       } catch(error) {
         console.error("Error fetching coordinates")
@@ -126,6 +135,7 @@ function App() {
    
   // setCoords is used to position the target circle
   const handler = (event) => {
+    
     setGameStart(true)
     setCoords(prevState => {
       return {...prevState ,
@@ -202,7 +212,7 @@ function App() {
 
   }
 
-  console.log(coords)
+  //console.log(coords)
 
   const leaderboardHandler = (value) => {
 
@@ -216,7 +226,7 @@ function App() {
 
   }
  
-console.log(gameEnd)
+//console.log(gameEnd)
   return (
     <HashRouter basename = "/">
       <div className="App">

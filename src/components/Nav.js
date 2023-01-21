@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react"
 import Waldo from "../images/characters/waldo.gif"
 import Wilma from  "../images/characters/wilma.gif"
 import Whitebeard from  "../images/characters/whitebeard.gif"
